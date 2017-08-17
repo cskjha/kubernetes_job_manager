@@ -1,0 +1,34 @@
+apply plugin: "com.github.johnrengelman.shadow"
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+        mavenLocal()
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.3"
+        classpath "gradle.plugin.ua.eshepelyuk.gradle.jaxrsAnalyzer:gradle-jaxrs-analyzer-plugin:0.1.5"
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.6.RELEASE"
+    }
+}
+
+ext {
+    javaLevel = 1.8
+}
+
+allprojects {
+    version = major_version + '.' + minor_version + '.' + patch_version
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+}
+
+subprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
