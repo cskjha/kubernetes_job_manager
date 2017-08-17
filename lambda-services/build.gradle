@@ -28,8 +28,6 @@ bootRepackage {
 }
 
 uploadArchives {
-    dependsOn assemble
-
     repositories {
         mavenDeployer {
             repository(url: "https://bora.jfrog.io/bora/services-release") {
