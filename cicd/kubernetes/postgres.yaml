@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: postgres
+  labels:
+    appOrm: postgres
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: postgres
+      name: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: bora-docker-local.jfrog.io/postgres:2
+        ports:
+        - containerPort: 5432
+      - name: lambda-api
+        image: bora-docker-local.jfrog.io/lambda-svc:1
+        ports:
+        - containerPort: 8000
+          name: lambda-api
+        env:
+            - name: BINDING_PORT
+             value: "8000"
+            - name: JVM_HEAP
+             value: 1000m
+            - name: JVM_METASPACE
+             value: 200m
+            - name: JMX_PORT
+             value: "7199"
+      imagePullSecrets:
+      - name: imagesecret
