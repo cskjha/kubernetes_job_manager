@@ -1,0 +1,36 @@
+apply plugin: 'maven'
+
+dependencies {
+    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0.1'
+}
+
+// for swagger doc generation
+apply plugin: "ua.eshepelyuk.gradle.jaxrsAnalyzer"
+jaxrsAnalyzer {
+    version = '0.9'
+}
+jaxrsAnalyzerDoc.backend = 'swagger'
+javadoc.dependsOn jaxrsAnalyzerDoc
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://bora.jfrog.io/bora/contracts-release") {
+                authentication(userName: "admin", password: "VMware1!")
+            }
+
+            snapshotRepository(url: "https://bora.jfrog.io/bora/contracts-snapshot") {
+                authentication(userName: "admin", password: "VMware1!")
+            }
+
+            pom.project {
+                name 'Open source borathon contracts '
+                packaging 'jar'
+                url ''
+                pom.groupId = artifact_group
+                pom.artifactId = "watcher-contracts"
+                pom.version = version
+            }
+        }
+    }
+}

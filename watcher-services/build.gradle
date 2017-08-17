@@ -1,0 +1,49 @@
+apply plugin: 'application'
+apply plugin: 'docker'
+apply plugin: 'maven'
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: 'jacoco'
+
+mainClassName = "com.vmware.lambda.watcher.Watcher"
+
+dependencies {
+    compile group: 'com.mashape.unirest', name: 'unirest-java', version: '1.4.9'
+
+    testCompile group: 'com.github.tomakehurst', name: 'wiremock', version: '2.6.0'
+    testCompile project(':watcher-contracts')
+}
+
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.vmware.lambda.watcher.Watcher'
+    }
+}
+
+
+artifacts {
+    archives shadowJar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://bora.jfrog.io/bora/services-release") {
+                authentication(userName: "admin", password: "VMware1!")
+            }
+
+            snapshotRepository(url: "https://bora.jfrog.io/bora/services-snapshot") {
+                authentication(userName: "admin" , password: "VMware1!")
+            }
+
+            pom.project {
+                name 'Open source borathon contracts'
+                packaging 'jar'
+                url ''
+                pom.groupId = artifact_group
+                pom.artifactId = "watcher-services"
+                pom.version = version
+            }
+        }
+    }
+}
