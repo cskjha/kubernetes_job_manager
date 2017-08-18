@@ -16,8 +16,8 @@ These instructions will get you a copy of the project up and running on your loc
 #### Build
 Run the following commands to build the service.
 ```
-git clone git clone 10.112.81.169:/opt/git/opensource.git
-cd opensource
+git clone git@github.com:cskjha/kubernetes_job_manager.git
+cd kubernetes_job_manager
 gradle wrapper
 ./gradlew build
 ```
@@ -63,10 +63,15 @@ TBD
 ## Authors
 
 Amit Kumar
+
 Atul Jadhav
-Jay Juch 
-Chandrashekhar Jha 
-Yash Bhatnagar 
+
+Jay Juch
+
+Chandrashekhar Jha
+
+Yash Bhatnagar
+
 Vishal Gupta
 
 ## License
