@@ -1,0 +1,196 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Opensource Borathon",
+		"_postman_id": "e7c2bc89-b0bc-215b-bd4f-d8cde0b59121",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/lambda/api/v1/app",
+			"request": {
+				"url": "http://localhost:8080/lambda/api/v1/app",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"ci\",\n\t\"configs\":\"{\\\"owner\\\": \\\"CI\\\", \\\"desc\\\": \\\"Cost Optimization\\\"}\"\n}"
+				},
+				"description": "create App"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/lambda/api/v1/app",
+			"request": {
+				"url": "http://localhost:8080/lambda/api/v1/app",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "List All App"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/lambda/api/v1/app",
+			"request": {
+				"url": "http://localhost:8080/lambda/api/v1/app",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"ci\",\n        \"configs\": \"{\\\"owner\\\": \\\"CI\\\", \\\"desc\\\": \\\"Cost Optimization Updated\\\"}\"\n    }"
+				},
+				"description": "app Update"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/lambda/api/v1/funktion?appName=ci",
+			"request": {
+				"url": "http://localhost:8080/lambda/api/v1/function/ci",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t  \"name\": \"ci\",\n      \"image\": \"symphony-docker-local.jfrog.io/vrbc-services/initial/vrbc-cost-engine-functions:1-1-59\",\n      \"configs\": \"{\\\"owner\\\": \\\"CI\\\", \\\"desc\\\": \\\"Cost Engine\\\"}\",\n      \"envs\": \"{\\\"owner\\\": \\\"CI\\\", \\\"desc\\\": \\\"Cost Engine\\\"}\",\n      \"timeout\": 60000,\n      \"memory\": 2000,\n      \"maxRetryCount\": 3,\n      \"priority\": 1,\n      \"disable\": false\n}"
+				},
+				"description": "Function creation"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/lambda/api/v1/funktion?appName=ci&functionName=opt",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/lambda/api/v1/function/ci?function=opt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lambda",
+						"api",
+						"v1",
+						"function",
+						"ci"
+					],
+					"query": [
+						{
+							"key": "function",
+							"value": "opt",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Function Listing"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/lambda/api/v1/funktion?appName=ci",
+			"request": {
+				"url": "http://localhost:8080/lambda/api/v1/function/ci",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"name\": \"opt\",\n        \"image\": \"symphony-docker-local.jfrog.io/vrbc-services/initial/vrbc-optimizations-functions:1-1-59\",\n        \"configs\": \"{\\\"owner\\\": \\\"CI\\\", \\\"desc\\\": \\\"Cost Optimization Updated\\\"}\",\n        \"envs\": \"{\\\"owner\\\": \\\"CI\\\", \\\"desc\\\": \\\"Cost Insight\\\"}\",\n        \"timeout\": 60000,\n        \"memory\": 2000,\n        \"maxRetryCount\": 4,\n        \"priority\":4,\n        \"disable\": true\n    }"
+				},
+				"description": "Function update"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/lambda/api/v1/app",
+			"request": {
+				"url": "http://localhost:8080/lambda/api/v1/activate/ci/opt",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"payload\": \"{\\\"functionName\\\":\\\"recommendation\\\",\\\"endPointLink\\\":\\\"/resources/endpoints/fd3470074c5d4475-7f703c5265a63d87-f144a0c7b91028dd-38cad9a598c4e675555ad8f6027e8\\\"}\"\n}"
+				},
+				"description": "create Event"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/lambda/api/v1/app",
+			"request": {
+				"url": "http://localhost:8080/lambda/api/v1/activate/ci/opt/2",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"payload\": \"{\\\"functionName\\\":\\\"recommendation\\\",\\\"endPointLink\\\":\\\"/resources/endpoints/fd3470074c5d4475-7f703c5265a63d87-f144a0c7b91028dd-38cad9a598c4e675555ad8f6027e8\\\"}\"\n}"
+				},
+				"description": "create Event with Priority"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/lambda/api/v1/app",
+			"request": {
+				"url": "http://localhost:8080/lambda/api/v1/activate/ciopt1502958454167",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"payload\": \"{\\\"functionName\\\":\\\"recommendation\\\",\\\"endPointLink\\\":\\\"/resources/endpoints/fd3470074c5d4475-7f703c5265a63d87-f144a0c7b91028dd-38cad9a598c4e675555ad8f6027e8\\\"}\"\n}"
+				},
+				"description": "Find Event By Id"
+			},
+			"response": []
+		}
+	]
+}
